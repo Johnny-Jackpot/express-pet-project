@@ -1,16 +1,15 @@
 import express from "express";
+import { twitRouter } from "./src/twit/twit.controller.js";
 
 const app = express();
 
 async function main() {
   app.use(express.json());
 
-  app.get("/api/twit", (req, res) => {
-    res
-      .json({
-        message: "success",
-      })
-      .status(200);
+  app.use("/api/twits", twitRouter);
+
+  app.all("*", (req, res) => {
+    res.status(404).json({ message: "Not Found" });
   });
 
   app.listen(3021, () => {
