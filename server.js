@@ -5,7 +5,7 @@ const app = express();
 async function main() {
   app.use(express.json());
 
-  app.use("/api/twit", (req, res) => {
+  app.get("/api/twit", (req, res) => {
     res
       .json({
         message: "success",
