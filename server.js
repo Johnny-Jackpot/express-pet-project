@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 
-app.set("views", './src/views');
+app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
 async function main() {
@@ -24,8 +24,17 @@ async function main() {
     });
   });
 
+  app.get('/error', (req, res) => {
+    throw new Error('Test error')
+  })
+
   app.all("*", (req, res) => {
     res.status(404).json({ message: "Not Found" });
+  });
+
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: "something wend wrong" });
   });
 
   const port = process.env.PORT ?? 4200;
