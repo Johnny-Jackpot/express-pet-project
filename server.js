@@ -1,5 +1,8 @@
 import express from "express";
 import { twitRouter } from "./src/twit/twit.controller.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -12,8 +15,10 @@ async function main() {
     res.status(404).json({ message: "Not Found" });
   });
 
-  app.listen(3021, () => {
-    console.log("Server is running");
+  const port = process.env.PORT ?? 4200;
+
+  app.listen(port, () => {
+    console.log(`Server is running at: http://localhost:${port}`);
   });
 }
 
