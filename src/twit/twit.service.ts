@@ -1,5 +1,7 @@
+import {ITwit} from "@/twit/twit.types";
+
 export class TwitService {
-  createTwit(twit) {
+  createTwit(twit: ITwit): ITwit {
     return twit;
   }
 }

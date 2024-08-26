@@ -1,7 +1,6 @@
-import express from "express";
+import express, {NextFunction, Request, Response} from "express";
 import { twitRouter } from "./src/twit/twit.controller";
 import dotenv from "dotenv";
-import * as path from "path";
 
 dotenv.config();
 
@@ -15,7 +14,7 @@ async function main() {
 
   app.use("/api/twits", twitRouter);
 
-  app.get("/profile", (req, res) => {
+  app.get("/profile", (req: Request, res: Response) => {
     res.render("profile", {
       user: {
         name: "John",
@@ -24,15 +23,15 @@ async function main() {
     });
   });
 
-  app.get('/error', (req, res) => {
+  app.get('/error', (req: Request, res: Response) => {
     throw new Error('Test error')
   })
 
-  app.all("*", (req, res) => {
+  app.all("*", (req: Request, res: Response) => {
     res.status(404).json({ message: "Not Found" });
   });
 
-  app.use((err, req, res, next) => {
+  app.use((err: Error, req: Request, res: Response) => {
     console.error(err.stack);
     res.status(500).json({ message: "something wend wrong" });
   });
