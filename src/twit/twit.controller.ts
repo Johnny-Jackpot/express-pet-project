@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { TwitService } from "./twit.service.js";
-import {authMiddleware} from "../auth.middleware.js";
+import { TwitService } from "./twit.service";
+import {authMiddleware} from "../auth.middleware";
 
 export const twitRouter = Router();
 

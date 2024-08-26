@@ -1,5 +1,5 @@
 import express from "express";
-import { twitRouter } from "./src/twit/twit.controller.js";
+import { twitRouter } from "./src/twit/twit.controller";
 import dotenv from "dotenv";
 import * as path from "path";
 
