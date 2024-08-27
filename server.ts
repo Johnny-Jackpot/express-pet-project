@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import { twitRouter } from "@/twit/twit.controller";
 import { PrismaClient } from "@prisma/client";
+import { logger } from "./src/utils/log";
 
 dotenv.config();
 
@@ -35,14 +36,14 @@ async function main() {
   });
 
   app.use((err: Error, req: Request, res: Response) => {
-    console.error(err.stack);
+    logger.error(err.stack);
     res.status(500).json({ message: "something wend wrong" });
   });
 
   const port = process.env.PORT ?? 4200;
 
   app.listen(port, () => {
-    console.log(`Server is running at: http://localhost:${port}`);
+    logger.info(`Server is running at: http://localhost:${port}`);
   });
 }
 
@@ -51,8 +52,7 @@ main()
     await prisma.$connect();
   })
   .catch(async (e) => {
-    console.error(e);
+    logger.error(e);
     await prisma.$disconnect();
     process.exit(1);
-    s;
   });
