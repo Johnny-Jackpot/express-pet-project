@@ -1,10 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
-import { twitRouter } from "@/twit/twit.controller";
-import { PrismaClient } from "@prisma/client";
-import { logger } from "./src/utils/log";
 import helmet from "helmet";
 import compression from "compression";
+import { twitRouter } from "@/twit/twit.controller";
+import { PrismaClient } from "@prisma/client";
+import { logger } from "@/utils/log";
 
 dotenv.config();
 
