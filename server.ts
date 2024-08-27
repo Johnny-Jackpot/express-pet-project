@@ -1,10 +1,13 @@
-import express, {NextFunction, Request, Response} from "express";
-import { twitRouter } from "./src/twit/twit.controller";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
+import { twitRouter } from "@/twit/twit.controller";
+import { PrismaClient } from "@prisma/client";
 
 dotenv.config();
 
 const app = express();
+
+const prisma = new PrismaClient();
 
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
@@ -23,9 +26,9 @@ async function main() {
     });
   });
 
-  app.get('/error', (req: Request, res: Response) => {
-    throw new Error('Test error')
-  })
+  app.get("/error", (req: Request, res: Response) => {
+    throw new Error("Test error");
+  });
 
   app.all("*", (req: Request, res: Response) => {
     res.status(404).json({ message: "Not Found" });
@@ -43,4 +46,13 @@ async function main() {
   });
 }
 
-main();
+main()
+  .then(async () => {
+    await prisma.$connect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+    s;
+  });
