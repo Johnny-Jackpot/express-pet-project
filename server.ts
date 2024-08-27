@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { twitRouter } from "@/twit/twit.controller";
 import { PrismaClient } from "@prisma/client";
 import { logger } from "./src/utils/log";
+import helmet from "helmet";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ const prisma = new PrismaClient();
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
+app.use(helmet());
 app.use(express.json());
 app.use("/api/twits", twitRouter);
 app.get("/profile", (req: Request, res: Response) => {
